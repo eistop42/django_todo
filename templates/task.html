@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main>
+
+    <h2> {{ task.name }} </h2>
+    <p>{{ task.descr }}</p>
+
+    <a href="{% url 'main' %}">на главную</a>
+
+</main>
+
+{% endblock %}

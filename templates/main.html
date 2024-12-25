@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+
+    <!--  Content for the list of tasks will be here -->
+
+    <ul id="tasks">
+        {% for task in todo %}
+        <li>
+              <span class="task-title"><a href="{% url 'task_detail' task.id %}">{{ task.name }}</a>
+              </span>
+            <p>{{ task.descr }}</p>
+            <!--              <span class="task-description">Молоко, хлеб, яйца.</span>-->
+        </li>
+        {% endfor %}
+    </ul>
+
+    <form method="post" action="{% url 'main' %}">
+        {% csrf_token %}
+        <label for="text">Название задачи</label><br>
+        <input id="text" name="text" type="text"><br>
+
+        <label for="descr">Описание задачи</label><br>
+        <textarea id="descr" name="descr" > </textarea><br>
+
+        <input type="submit" value="Добавить задачу">
+    </form>
+</main>
+{% endblock %}
+
