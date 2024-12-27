@@ -11,8 +11,26 @@ todo = [
 
 def main(request):
 
-    print(request.POST)
+    # получить все задачи
     todo = Task.objects.all()
+
+    status = request.GET.get('status')
+
+    if status:
+        # отфильтровать
+        todo = todo.filter(status=status)
+
+    # добавить новую задачу
+    if request.method == 'POST':
+        text_data = request.POST['text']
+        descr_data = request.POST['descr']
+
+        if text_data and descr_data:
+
+            Task.objects.create(name=text_data, descr=descr_data)
+
+
+
     return render(request, 'main.html', {'todo': todo})
 
 
@@ -20,18 +38,30 @@ def about(request):
     return HttpResponse('<h2>разработка академии</h2>')
 
 def products(request):
-    products = [
-        {'id': 1, 'name': 'батон', 'price': 100},
-        {'id': 2, 'name': 'молоко', 'price': 50},
-        {'id': 3, 'name': 'масло', 'price': 500},
-    ]
-    products = Product.objects.filter(price__lt=200, name='хлеб ')
+
+    if request.method == 'POST':
+        name = request.POST['name']
+        price = request.POST['price']
+
+        Product.objects.create(name=name, price=price)
+
+    products = Product.objects.all()
     return render(request, 'products.html', {'my_products': products})
 
 
 def task(request, task_id):
 
     task = Task.objects.get(id=task_id)
+
+    if request.method == 'POST':
+        # достали статус из запроса
+        status = request.POST['status']
+
+        # изменили статус у задачи в переменной task на тот, что в переменной status
+        task.status = status
+
+        # сохранили изменения в базу
+        task.save()
 
     return render(request, 'task.html', {'task': task})
 

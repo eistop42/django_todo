@@ -4,12 +4,14 @@
 <main>
 
     <!--  Content for the list of tasks will be here -->
-
+    <p>Фильтр: <a href="?status=complete" >выполненные</a>, <a href="?status=uncomplete">не выполненные</a>
+        <a href="?status=in_progress">в процессе</a></p>
     <ul id="tasks">
         {% for task in todo %}
         <li>
               <span class="task-title"><a href="{% url 'task_detail' task.id %}">{{ task.name }}</a>
               </span>
+            <p>Статус: {{ task.get_status_display }}</p>
             <p>{{ task.descr }}</p>
             <!--              <span class="task-description">Молоко, хлеб, яйца.</span>-->
         </li>

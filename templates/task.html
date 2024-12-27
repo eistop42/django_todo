@@ -7,6 +7,22 @@
     <h2> {{ task.name }} </h2>
     <p>{{ task.descr }}</p>
 
+
+    <form method="post" action="{% url 'task_detail' task.id %}">
+        {% csrf_token %}
+
+        <input type="radio" id="status_complete" name="status" value="complete"  {% if task.status == 'complete' %} checked {% endif %} />
+        <label for="status_complete">Выполнена</label>
+
+        <input type="radio" id="status_uncomplete" name="status" value="uncomplete" {% if task.status == 'uncomplete' %} checked {% endif %}   />
+        <label for="status_uncomplete">Не выполнена</label>
+
+        <input type="radio" id="status_in_progress" name="status" value="in_progress" {% if task.status == 'in_progress' %} checked {% endif %}   />
+        <label for="status_in_progress">В процессе</label>
+
+        <input type="submit" value="Изменить статус">
+    </form>
+
     <a href="{% url 'main' %}">на главную</a>
 
 </main>

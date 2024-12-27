@@ -7,5 +7,5 @@ urlpatterns = [
     path('', main, name='main'),
     path('task/<int:task_id>', task, name='task_detail'),
     path('aboutpage', about),
-    path('products', products)
+    path('products', products, name='products')
 ]

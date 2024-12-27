@@ -9,5 +9,16 @@
 {% for product in my_products %}
 <p>{{ product.name }} - {{ product.price }} </p>
 {% endfor %}
+
+    <form method="post" action="{% url 'products' %}">
+        {% csrf_token %}
+        <label for="name">Название </label><br>
+        <input id="name" name="name" type="text"><br>
+
+        <label for="price">Цена</label><br>
+        <input id="price" name="price" type="number" ><br>
+
+        <input type="submit" value="Добавить товар">
+    </form>
 </body>
 </html>
